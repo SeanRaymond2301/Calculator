@@ -17,6 +17,8 @@ function calculate() {
     checkOpAfter(op, num1, num2);
     if (!ifErrorFound)
       mathOp(op, num1, num2);
+    
+    resetOp();
 
 }
         //Function checking for invalid operands/operators before they get parsed to integers.
@@ -72,7 +74,7 @@ function mathOp(op, num1, num2) {
             case "/":
             case "div":
             case "divide":
-                if (num2==0) {
+                if (num2 == 0) {
                   doOutput("Cannot divide by 0");
                   break;
                 }
@@ -114,6 +116,19 @@ function mathOp(op, num1, num2) {
 
 function doOutput(doOut) {
 
-    document.getElementById("output").innerHTML = doOut;
+    if (!ifErrorFound) {
+        document.getElementById("in1").value = doOut;
+        return;
+    } else {
+        document.getElementById("output").innerHTML = ("Your mom gay.");
+    }
+}
 
+function resetOp() {
+    
+    document.getElementById("in3").value = "";
+    document.getElementById("output").innerHTML = "";
+    document.getElementById("operator").value = "";
+    document.getElementById("operator").focus();
+    
 }
