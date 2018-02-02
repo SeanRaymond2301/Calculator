@@ -4,24 +4,23 @@ function calculate() {
         num2 = document.getElementById("in3").value,
         op = document.getElementById("operator").value;
     
-    checkOp(op, num1, num2);
+    checkBefore(op, num1, num2);
     
         num1 = parseFloat(num1);
         num2 = parseFloat(num2);
     
+    checkAfter(op, num1, num2);
     mathOp(op, num1, num2);
     
 }
+        //Function checking for invalid operands/operators before they get parsed to integers.
 
-function checkOp(op, num1, num2) {
+function checkBefore(op, num1, num2) {
     
-    if (op == "/" && num1 == "" || num2 == "") { 
-        doOutput("Please Insert Values into blank inputs.");
+     if(!(op == "sin" || op =="sine" || op == "cos" || op == "cosine" || op == "sqr" || op == "root" || op == "tan" || op == "tangent") && num1 == "" || num2 == "") {
+        doOutput("Please insert values into blank inputs.");
         return;
-    } else if(op == "" || num1 == "" || num2 == "") {
-        doOutput("Please Insert values into blank inputs.");
-        return;
-    } else if(!(op == "sin" || op =="sine" || op == "cos" || op == "cosine" || op == "sqr" || op == "root" || op == "tan" || op == "tangent") && num1 == "" || num2 == "") {
+    } else if(num1 == "" || op == "" || num2 == "") {
         doOutput("Please insert values into blank inputs.");
         return;
     } else {
@@ -30,8 +29,25 @@ function checkOp(op, num1, num2) {
     
 }
 
+        //Function checking for invalid operands/operators fater being parsed to integers.
+
+function checkAfter(op, num1, num2) {   
+
+    if(op == "/" && num2 == 0 && num1 !== 0) {
+        doOutput("Anything divided by 0 is not a definable value due to lack of unique values.");
+        return;
+    } else {
+        return;
+    }
+    
+}
+
 function mathOp(op, num1, num2) {
-        
+    
+
+    
+        //Function figuring out which operator is being used, pulls the numbers from the inputs, and operates the aligned function.
+    
     switch(op) {
         case "+":
         case "add":
@@ -85,6 +101,7 @@ function mathOp(op, num1, num2) {
     }
     
 }
+        //Shorthand function for outputting results, saving keystrokes and time for expandability and QoL
 
 function doOutput(doOut) {
     
