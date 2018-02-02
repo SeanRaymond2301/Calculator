@@ -9,21 +9,21 @@ function calculate() {
         num1 = parseFloat(num1);
         num2 = parseFloat(num2);
     
-    doOutput();
     mathOp(op, num1, num2);
     
 }
 
 function checkOp(op, num1, num2) {
     
-    if (op == "" || num1 == "" || num2 == "") {
+    if (op == "/" && num1 == "" || num2 == "") { 
+        doOutput("Please Insert Values into blank inputs.");
+        return;
+    } else if(op == "" || num1 == "" || num2 == "") {
         doOutput("Please Insert values into blank inputs.");
         return;
     } else if(!(op == "sin" || op =="sine" || op == "cos" || op == "cosine" || op == "sqr" || op == "root" || op == "tan" || op == "tangent") && num1 == "" || num2 == "") {
         doOutput("Please insert values into blank inputs.");
         return;
-    } else if(op == "/" && num1 == "" || num2 == "") {
-        doOutput("Please insert values other than zero into the blank inputs.");
     } else {
         return;
     }
