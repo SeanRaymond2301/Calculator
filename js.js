@@ -1,67 +1,63 @@
         //Variable for making mathOp(); not run if an error is found.
-var ifErrorFound;
+
+var ifErrorFound = false;
 
 function calculate() {
-    
-    var ifErrorFound = "0",
+
+    var ifErrorFound = false,
         num1 = document.getElementById("in1").value,
         num2 = document.getElementById("in3").value,
         op = document.getElementById("operator").value;
-    
+
     checkOpBefore(op, num1, num2);
-    
+
         num1 = parseFloat(num1);
         num2 = parseFloat(num2);
-    
+
     checkOpAfter(op, num1, num2);
-    
-    mathOp(op, num1, num2);
-    
+    if (!ifErrorFound)
+      mathOp(op, num1, num2);
+
 }
         //Function checking for invalid operands/operators before they get parsed to integers.
 
 function checkOpBefore(op, num1, num2) {
-    
+
      if(!(op == "sin" || op =="sine" || op == "cos" || op == "cosine" || op == "sqr" || op == "root" || op == "tan" || op == "tangent") && num1 == "" || num2 == "") {
         doOutput("Please insert values into blank inputs.");
-        ifErrorFound = "1";
+        ifErrorFound = true;
         return;
     } else if(num1 == "" || op == "" || num2 == "") {
-        ifErrorFound = "1";
+        ifErrorFound = true;
         doOutput("Please insert values into blank inputs.");
         return;
     } else {
         return;
     }
-    
+
 }
 
         //Function checking for invalid operands/operators fater being parsed to integers.
 
-function checkOpAfter(op, num1, num2) {   
+function checkOpAfter(op, num1, num2) {
 
     if(op == "/" && num2 == 0 && num1 !== 0) {
         doOutput("Anything divided by 0 is not a definable value due to lack of unique values.");
-        ifErrorFound = "1";
+        ifErrorFound = true;
         return;
     } else {
         return;
     }
-    
+
 }
 
 function mathOp(op, num1, num2) {
-    
 
-    
         //Function figuring out which operator is being used, pulls the numbers from the inputs, and operates the aligned function.
-    
-    if(ifErrorFound !== "1") {
-    
         switch(op) {
             case "+":
             case "add":
-            case "addition":    
+            case "addition":
                 doOutput(num1 + num2);
                 break;
             case "-":
@@ -71,15 +67,19 @@ function mathOp(op, num1, num2) {
             case "*":
             case "mult":
             case "multiply":
-                doOutput(num1 * num2); 
+                doOutput(num1 * num2);
                 break;
             case "/":
             case "div":
             case "divide":
+                if (num2==0) {
+                  doOutput("Cannot divide by 0");
+                  break;
+                }
                 doOutput(num1 / num2);
                 break;
             case "mod":
-            case "%":    
+            case "%":
             case "modulus":
                 doOutput(num1 % num2);
                 break;
@@ -108,14 +108,12 @@ function mathOp(op, num1, num2) {
                 doOutput(Math.tan(num1));
                 break;
         }
-        
-    }
-    
+
 }
         //Shorthand function for outputting results, saving keystrokes and time for expandability and QoL
 
 function doOutput(doOut) {
-    
+
     document.getElementById("output").innerHTML = doOut;
 
 }
