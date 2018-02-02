@@ -15,23 +15,26 @@ function calculate() {
         num2 = parseFloat(num2);
 
     checkOpAfter(op, num1, num2);
-    if (!ifErrorFound)
-      mathOp(op, num1, num2);
+    if (!ifErrorFound) {
+        mathOp(op, num1, num2);
+        resetOp();
+        return;
+    }
     
-    resetOp();
-
+    yourMomGay();
+    
 }
         //Function checking for invalid operands/operators before they get parsed to integers.
 
 function checkOpBefore(op, num1, num2) {
 
      if(!(op == "sin" || op =="sine" || op == "cos" || op == "cosine" || op == "sqr" || op == "root" || op == "tan" || op == "tangent") && num1 == "" || num2 == "") {
-        doOutput("Please insert values into blank inputs.");
-        ifErrorFound = true;
+            yourMomGay();
+            ifErrorFound = true;
         return;
     } else if(num1 == "" || op == "" || num2 == "") {
-        ifErrorFound = true;
-        doOutput("Please insert values into blank inputs.");
+            ifErrorFound = true;
+            yourMomGay();
         return;
     } else {
         return;
@@ -44,10 +47,12 @@ function checkOpBefore(op, num1, num2) {
 function checkOpAfter(op, num1, num2) {
 
     if(op == "/" && num2 == 0 && num1 !== 0) {
-        doOutput("Anything divided by 0 is not a definable value due to lack of unique values.");
+        yourMomGay();
         ifErrorFound = true;
         return;
-    } else {
+    } else if(isNaN(num2) || isNaN(num1)) {
+        yourMomGay();
+        ifErrorFound = true;
         return;
     }
 
@@ -75,7 +80,7 @@ function mathOp(op, num1, num2) {
             case "div":
             case "divide":
                 if (num2 == 0) {
-                  doOutput("Cannot divide by 0");
+                  yourMomGay;
                   break;
                 }
                 doOutput(num1 / num2);
@@ -109,6 +114,8 @@ function mathOp(op, num1, num2) {
             case "tangent":
                 doOutput(Math.tan(num1));
                 break;
+            default:
+                yourMomGay();
         }
 
 }
@@ -116,18 +123,20 @@ function mathOp(op, num1, num2) {
 
 function doOutput(doOut) {
 
-    if (!ifErrorFound) {
-        document.getElementById("in1").value = doOut;
-        return;
-    } else {
-        document.getElementById("output").innerHTML = ("Your mom gay.");
-    }
+    document.getElementById("in1").value = doOut;
+    
+}
+
+function yourMomGay() {
+    
+    document.getElementById("output").innerHTML = "Your mom gay.";
+    
 }
 
 function resetOp() {
     
     document.getElementById("in3").value = "";
-    document.getElementById("output").innerHTML = "";
+    document.getElementById("output").value = "";
     document.getElementById("operator").value = "";
     document.getElementById("operator").focus();
     
